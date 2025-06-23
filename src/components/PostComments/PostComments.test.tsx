@@ -7,4 +7,22 @@ describe('Teste para o componente PostComment', () => {
         render(<PostComment/>);
         expect(screen.getByText('Comentar')).toBeInTheDocument();
     });
+    it('Deve adicionar 2 comentários', () => {
+        render(<PostComment />)
+        fireEvent.change(screen.getByTestId('comentario'), {
+            target: {
+                value: 'Testando comentário 1'
+            }
+        })
+        fireEvent.click(screen.getByTestId('btn-comentar'))
+        expect(screen.getByText('Testando comentário 1')).toBeInTheDocument()
+        // Resolver repetição de código
+        fireEvent.change(screen.getByTestId('comentario'), {
+            target: {
+                value: 'Testando comentário 2'
+            }
+        })
+        fireEvent.click(screen.getByTestId('btn-comentar'))
+        expect(screen.getByText('Testando comentário 2')).toBeInTheDocument()
+    })
 });
