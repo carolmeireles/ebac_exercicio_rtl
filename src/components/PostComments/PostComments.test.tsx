@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import Post from '.';
 import PostComment from '.';
 
 describe('Teste para o componente PostComment', () => {
@@ -9,20 +8,24 @@ describe('Teste para o componente PostComment', () => {
     });
     it('Deve adicionar 2 comentários', () => {
         render(<PostComment />)
+        const comentario1 = 'Testando comentário 1'
+        const comentario2 = 'Testando comentário 2'
+
         fireEvent.change(screen.getByTestId('comentario'), {
             target: {
-                value: 'Testando comentário 1'
+                value: comentario1
             }
         })
         fireEvent.click(screen.getByTestId('btn-comentar'))
-        expect(screen.getByText('Testando comentário 1')).toBeInTheDocument()
-        // Resolver repetição de código
+
         fireEvent.change(screen.getByTestId('comentario'), {
             target: {
-                value: 'Testando comentário 2'
+                value: comentario2
             }
         })
         fireEvent.click(screen.getByTestId('btn-comentar'))
-        expect(screen.getByText('Testando comentário 2')).toBeInTheDocument()
+
+        expect(screen.getByText(comentario1)).toBeInTheDocument()
+        expect(screen.getByText(comentario2)).toBeInTheDocument()
     })
 });
